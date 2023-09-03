@@ -33,7 +33,7 @@ combination. Make sure to select "Save As" in the blue left-pane after which you
 You can now proceed to open the Word document, optionally from another Word-equiped
 machine and/or user.
 
-## Cheking Results
+## Checking Results
 If you switch back to the Responder session, you will notice a multitude of collected hashes.
 Do note that the below output is trimmed as Windows will insist on connecting to the server, so
 we'll capture the NTLMv2 Challenge-Response multiple times.
