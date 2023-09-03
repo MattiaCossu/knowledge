@@ -1,0 +1,31 @@
+alert:
+  - 'hivealerter'
+
+hive_connection:
+  hive_host: http://192.168.20.106
+  hive_port: 9000
+  hive_apikey: lAI6EcfZSc4sZmRj6TVXR2zxkoawDXgf # Replace the API key with yours
+
+hive_alert_config:
+  title: 'RDP logins detected on host {match[host][name]}'
+  type: 'ElastAlert'
+  source: '{match[event][provider]}'
+  description: 'Detected by {rule[name]}.'
+  severity: 2
+  tags: ['Sigma', 'Test']
+  tlp: 2
+  status: 'New'
+  follow: True
+
+description: Detect RDP logins
+filter:
+- query:
+  query_string:
+    query: (winlog.channel:"Security" AND winlog.event_id:"4624" AND
+winlog.event_data.LogonType:"10")
+index: winlogbeat-*
+name: 699-Test-rule_0
+priority: 4
+realert:
+  minutes: 0
+type: any

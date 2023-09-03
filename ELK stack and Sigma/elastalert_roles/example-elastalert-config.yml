@@ -1,0 +1,14 @@
+rules_folder: rules # dene the folder where you will store your Elastalert-rules
+run_every: # dene how often Elastalert should query the Elastic stack
+  minutes: 1
+buffer_time:
+  minutes: 15
+
+es_host: 192.168.20.106 # the IP address of the Elastic cluster
+es_port: 9200 # the port on which the Elastic cluster is accessible
+
+writeback_index: elastalert_status # the index name where Elastalert will write its data to
+writeback_alias: elastalart_alerts # an alias for the index name
+
+alert_time_limit: # the time before an existing alert is resent
+  days: 2

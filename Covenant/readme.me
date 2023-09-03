@@ -1,0 +1,64 @@
+# COVENANT
+
+**Covenant** is a .NET command and control framework that aims to highlight the attack
+surface of .NET, make the use of oensive .NET tradecraft easier, and serve as a
+collaborative command and control platform for red teamers.
+Covenant is an ASP.NET Core, cross-platform application that includes a web-based
+interface that allows for multi-user collaboration.
+
+[Source](https://github.com/cobbr/Covenant)
+
+## Listener 
+In order to communicate with a compromised host, Covenant relies on a Listener between
+infected hosts and the Covenant server. Covenant currently only supports http Listeners,
+with the below options:
+
+- Name: The Name of the listener that will be used throughout the interface. Pick something recognizable
+
+- Url: The Url is the callback URL, and is the url that Grunts will be directly connecting to. If you are using redirectors, this should be the url that points to the external redirector. The URL should be a combination of the ConnectAddress, BindPort, and UseSSL values and should be of the form:
+http(s)://CONNECTADDRESS:BINDPORT
+
+- ConnectAddress: The ConnectAddress is the callback address, and represents the hostname portion of the Url.
+
+- BindAddress: The BindAddress is the local ip address that the listener will bind to. This can be helpful in cases where the Covenant host has multiple nics. Usually, this value will be 0.0.0.0.
+
+- BindPort: The BindPort is the local port that the listener will bind to. This also represents the port portion of the Url.
+
+-UseSSL: The UseSSL value determines if the listener should use the HTTPS or HTTP protocol. If UseSSL value is true, an SSLCerticate needs to be provided
+
+-HttpProfile: The HttpProle determines the behavior of Grunt and listener communication.
+
+-SSLCertificate: The SSLCerticate is the certicate used by the listener, if UseSSL is true. The certicate is expected be in PFX format.
+
+-SSLCerticatePassword: The SSLCerticatePassword is the password that is being used to protect the SSLCerticate.
+
+## Launchers 
+Infecting hosts can be done through a variety of payloads called launchers . To continue our
+walkthrough, navigate to the Launcher tab. Covenant oers multiple launching techniques,
+each with its advantages and inconveniences:
+
+- Binary: The Binary launcher is used to generate custom binaries that launch a grunt. This is currently the only launcher that does not rely on a system binary.
+
+- PowerShell: The PowerShell launcher is used to generate PowerShell code and/or a PowerShell one-liner that launches a Grunt using powershell.exe.
+
+- MSBuild: The MSBuild launcher is used to generate an MSBuild XML file that launches a Grunt using msbuild.exe.
+
+- InstallUtil: The InstallUtil launcher is used to generate an InstallUtil XML file that launches a Grunt using installutil.exe.
+
+- Mshta: The Mshta launcher is used to generate an HTA le and/or a mshta one-liner that launches a Grunt using mshta.exe that relies on DotNetToJScript.
+
+- Regsvr32: The Regsvr32 launcher is used to generate an SCT le and/or regsvr32 one-liner that launches a Grunt using regsvr32.exe that relies on DotNetToJScript.
+
+- Wmic: The Wmic launcher is used to generate an xsl le and/or wmic one-liner that launches a Grunt using wmic.exe that relies on DotNetToJScript.
+
+- Cscript: The Cscript launcher is used to generate a JScript le a Grunt using cscript.exe that relies on DotNetToJScript.
+
+- Wscript: The Wscript launcher is used to generate a JScript le a Grunt using wscript.exe that relies on DotNetToJScript.
+
+## Templates
+Communication methods within the Covenant framework are implemented in the Templates
+tab. By default communication can be done among others through the HTTP or SMB protocol.
+Remember however that the server is only capable of handling HTTP communication.
+Meaning that the SMB template can only be used for communication between two grunts.
+Other templates such as the Bridge template can be found in some versions, which is nothing
+more than a HTTP template with specic outbound settings.

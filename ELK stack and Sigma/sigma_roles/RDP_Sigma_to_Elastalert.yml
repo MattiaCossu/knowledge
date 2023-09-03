@@ -1,0 +1,20 @@
+# COMMAND
+# sigmac --target elastalert --config ~/sigma/tools/config/winlogbeat-modules-enabled.yml --output ~/elastalert/rules/sec699-test.yml ~/custom_rules/sec699-test.yml\
+
+alert:
+- debug
+description: Detect RDP logins
+filter:
+- query:
+  query_string:
+    query: (winlog.channel:"Security" AND winlog.event_id:"4624" AND
+winlog.event_data.LogonType:"10")
+index: winlogbeat-*
+name: 699-Test-rule_0
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+# COMMAND FOR TEST RULE
+# python3 -m elastalert.elastalert --config ~/elastalert/config.yml --rule ~/elastalert/rules/sec699-test.yml --verbose --start $(date +"%Y-%m-%d")

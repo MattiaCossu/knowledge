@@ -1,0 +1,29 @@
+title: 699 Test rule
+description: Detect RDP logins
+tags:
+  - Test
+status: experimental
+author: sec699
+logsource:
+  product: windows
+  service: security
+  definition: 'Test rule to detect the existence of RDP logins'
+detection:
+  selection:
+    EventID: 4624
+    LogonType: 10
+  condition: selection
+falsepositives:
+  - everything
+level: low
+
+#- The title property must be unique across all the rules you want to load with ElastAlert.
+#- The description , tags , status , author , falsepositives and level properties add
+#  some more context to the rule but are not essential.
+#- The logsource property indicates which type of log source is required in order to be
+#  able to trigger this rule. In our case, we will be using the Windows security logs.
+#- In the definition we state what needs to be present in the log in order for the rule to
+#  be triggered. In our case again we will be looking at Windows Event IDs 4624 (successful
+#  logon) which have a logon type of 10 (remote desktop).
+#- Finally the selection in the condition indicates we want to positively match on these
+#  filters!
